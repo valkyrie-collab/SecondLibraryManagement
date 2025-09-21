@@ -30,7 +30,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Throwable {
         
-        return security.csrf(c -> c.disable())
+        return security.cors(c -> c.configurationSource(corsConfigurationSource()))
+                    .csrf(c -> c.disable())
                     .authorizeHttpRequests(
                         a -> a.requestMatchers(
                             "/user/sign-up", "/user/sign-in"
@@ -53,7 +54,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173/"));
+        config.setAllowedOrigins(List.of("http://localhost:5173"));
         config.setAllowedMethods(List.of("POST", "GET", "DELETE"));
         config.setAllowedHeaders(List.of("Content-Type", "Authorization"));
         config.setAllowCredentials(true);
