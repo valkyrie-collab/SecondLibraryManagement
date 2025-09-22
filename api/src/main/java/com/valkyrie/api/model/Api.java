@@ -16,9 +16,24 @@ public class Api {
         return route(name).POST(finalRoute,http()).before(uri(initialRoute)).build();
     }
 
+    private RouterFunction<ServerResponse> get(String name, String initialRoute, String finalRoute) {
+        return route(name).GET(finalRoute,http()).before(uri(initialRoute)).build();
+    }
+
+    private RouterFunction<ServerResponse> delete(String name, String initialRoute, String finalRoute) {
+        return route(name).DELETE(finalRoute,http()).before(uri(initialRoute)).build();
+    }
+
     @Bean
     public RouterFunction<ServerResponse> routerFunction() {
-        return post("authentication", "http://authentication:8081", "/user/**");
+        return post("authentication", "http://authentication:8081", "/user/**")
+            .and(
+                get("entity-get", "http://entity:8082", "/entity/**")
+            ).and(
+                post("entity-post", "http://entity:8082", "/entity/**")
+            ).and(
+                delete("entity-post", "http://entity:8082", "/entity/**")
+            );
     }
 
 }

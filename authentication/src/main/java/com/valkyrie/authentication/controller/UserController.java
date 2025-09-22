@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.valkyrie.authentication.model.User;
@@ -27,5 +28,5 @@ public class UserController {
     public ResponseEntity<String> signIn(@RequestBody User user) {return userService.signIn(user);}
 
     @GetMapping("/get-user")
-    public ResponseEntity<User> getUser(@RequestBody String username) {return userService.getUser(username);}
+    public ResponseEntity<User> getUser(@RequestParam String username) {return userService.getUser(username);}
 }
