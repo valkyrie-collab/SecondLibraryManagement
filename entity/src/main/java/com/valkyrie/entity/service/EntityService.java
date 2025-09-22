@@ -57,6 +57,7 @@ public class EntityService {
     }
 
     public ResponseEntity<String> borrowBook(String token, List<String> bookIds) {
+        System.out.println(bookIds);
         // bookId = new String(Base64.getDecoder().decode(bookId));
         String username = config.getUsername(token);
         Users entity = entityRepo.findById(username).orElse(null);
@@ -68,7 +69,7 @@ public class EntityService {
 
             for (String id : bookIds) {initialBookIds.add(id);}
 
-            entityRepo.save(entity.setBookIds(bookIds));
+            entityRepo.save(entity.setBookIds(initialBookIds));
 
         } else {
             entityRepo.save(entity.setBookIds(bookIds));
@@ -130,4 +131,5 @@ public class EntityService {
 
         return ResponseEntity.status(HttpStatus.OK).body("delete successfully...");
     }
+
 }

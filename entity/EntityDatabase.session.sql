@@ -1,0 +1,1 @@
+SELECT * FROM users_book_ids;
