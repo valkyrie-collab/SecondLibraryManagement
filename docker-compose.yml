@@ -49,6 +49,21 @@ services:
     networks:
       - myNetwork
   
+  entity:
+    build: ./entity
+    depends_on:
+      - postgres
+    ports:
+      - "8082:8082"
+    environment:
+      URL: jdbc:postgresql://postgres:5432/entitys
+      USERNAME: valkyrie
+      PASSWORD: valkyrie3008
+      JWTS_SECURITY: 4Pm+VWXTf/9yC5Qw+zA3mee6CluFCUfVYM+41u2Me90=
+      PORT: 8082
+    networks:
+      - myNetwork
+  
   service:
     build: ./service
     ports:

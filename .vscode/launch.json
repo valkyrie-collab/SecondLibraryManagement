@@ -29,6 +29,16 @@
             "projectName": "api",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-EntityApplication<entity>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.valkyrie.entity.EntityApplication",
+            "projectName": "entity",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
