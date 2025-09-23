@@ -1,2 +1,5 @@
 CREATE DATABASE authentication;
-CREATE DATABASE entitys
+CREATE DATABASE entitys;
+CREATE DATABASE book;
+CREATE DATABASE fine;
+CREATE DATABASE transaction;

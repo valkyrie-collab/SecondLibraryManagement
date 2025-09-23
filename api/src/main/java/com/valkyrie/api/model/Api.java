@@ -32,7 +32,25 @@ public class Api {
             ).and(
                 post("entity-post", "http://entity:8082", "/entity/**")
             ).and(
-                delete("entity-post", "http://entity:8082", "/entity/**")
+                delete("entity-delete", "http://entity:8082", "/entity/**")
+            ).and(
+                get("book-get", "http://book:8084", "/book/**")
+            ).and(
+                post("book-post", "http://book:8084", "/book/**")
+            ).and(
+                delete("book-delete", "http://book:8084", "/book/**")
+            ).and(
+                get("fine-get", "http://fine:8085", "/fine/**")
+            ).and(
+                post("fine-post", "http://fine:8085", "/fine/**")
+            ).and(
+                delete("fine-delete", "http://fine:8085", "/fine/**")
+            ).and(
+                get("transaction-get", "http://transaction:8083", "/transaction/**")
+            ).and(
+                post("transaction-post", "http://transaction:8083", "/transaction/**")
+            ).and(
+                delete("transaction-delete", "http://transaction:8083", "/transaction/**")
             );
     }
 

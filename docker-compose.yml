@@ -64,6 +64,51 @@ services:
     networks:
       - myNetwork
   
+  book:
+    build: ./book
+    depends_on:
+      - postgres
+    ports:
+      - "8084:8084"
+    environment:
+      URL: jdbc:postgresql://postgres:5432/book
+      USERNAME: valkyrie
+      PASSWORD: valkyrie3008
+      JWTS_SECURITY: 4Pm+VWXTf/9yC5Qw+zA3mee6CluFCUfVYM+41u2Me90=
+      PORT: 8084
+    networks:
+      - myNetwork
+  
+  transaction:
+    build: ./transaction
+    depends_on:
+      - postgres
+    ports:
+      - "8083:8083"
+    environment:
+      URL: jdbc:postgresql://postgres:5432/transaction
+      USERNAME: valkyrie
+      PASSWORD: valkyrie3008
+      JWTS_SECURITY: 4Pm+VWXTf/9yC5Qw+zA3mee6CluFCUfVYM+41u2Me90=
+      PORT: 8083
+    networks:
+      - myNetwork
+
+  fine:
+    build: ./fine
+    depends_on:
+      - postgres
+    ports:
+      - "8085:8085"
+    environment:
+      URL: jdbc:postgresql://postgres:5432/fine
+      USERNAME: valkyrie
+      PASSWORD: valkyrie3008
+      JWTS_SECURITY: 4Pm+VWXTf/9yC5Qw+zA3mee6CluFCUfVYM+41u2Me90=
+      PORT: 8085
+    networks:
+      - myNetwork
+  
   service:
     build: ./service
     ports:

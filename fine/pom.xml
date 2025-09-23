@@ -93,6 +93,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>fine</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

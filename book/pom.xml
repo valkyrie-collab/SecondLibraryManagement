@@ -93,6 +93,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>book</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
