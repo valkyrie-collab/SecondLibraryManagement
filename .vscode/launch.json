@@ -39,6 +39,16 @@
             "projectName": "entity",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-TransactionApplication<transaction>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.valkyrie.transaction.TransactionApplication",
+            "projectName": "transaction",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

@@ -1,4 +1,4 @@
-package com.valkyrie.entity.model;
+package com.valkyrie.transaction.model;
 
 import java.util.List;
 
