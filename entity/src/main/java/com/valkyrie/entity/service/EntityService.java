@@ -104,6 +104,7 @@ public class EntityService {
 //    }
 
     public ResponseEntity<UsersDTO> findMember(String id) {
+        System.out.println(id);
         id = new String(Base64.getDecoder().decode(id));
         Users field = entityRepo.findById(id).orElse(null);
 

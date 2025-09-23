@@ -53,6 +53,7 @@ public class TransactionService {
 //        }
 
 //        String encodedUsername = Base64.getEncoder().encodeToString(username.getBytes());
+        System.out.println(username);
         ResponseEntity<UsersDTO> response = feign.find(username);
         username = new String(Base64.getDecoder().decode(username));
 

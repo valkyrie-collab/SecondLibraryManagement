@@ -8,7 +8,8 @@
             "mainClass": "com.valkyrie.service.ServiceApplication",
             "projectName": "service",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=41869 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=service"
         },
         {
             "type": "java",
@@ -38,7 +39,8 @@
             "mainClass": "com.valkyrie.entity.EntityApplication",
             "projectName": "entity",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=45737 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=entity"
         },
         {
             "type": "java",
@@ -47,6 +49,27 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "com.valkyrie.transaction.TransactionApplication",
             "projectName": "transaction",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=39621 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=transaction"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-FineApplication<fine>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.valkyrie.fine.FineApplication",
+            "projectName": "fine",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-BookApplication<book>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.valkyrie.book.BookApplication",
+            "projectName": "book",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }

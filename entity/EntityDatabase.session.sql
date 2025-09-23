@@ -1,1 +1,1 @@
-SELECT * FROM users_book_ids;
+SELECT * FROM entity;

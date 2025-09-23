@@ -1,0 +1,87 @@
+package com.valkyrie.book.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.valkyrie.book.model.Book;
+import com.valkyrie.book.model.BookDTO;
+import com.valkyrie.book.service.BookService;
+
+import java.util.Base64;
+import java.util.List;
+
+@RestController
+@RequestMapping("book")
+public class BookController {
+
+    @Autowired
+    BookService bookService;
+
+    @GetMapping("search-title")
+    public ResponseEntity<List<BookDTO>> searchByTitle(@RequestParam String encoded_title){
+        byte[] decodedbytes = Base64.getDecoder().decode(encoded_title);
+        String title = new String(decodedbytes);
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.searchByTitle(title));
+    }
+
+    @GetMapping("search-author")
+    public ResponseEntity<List<BookDTO>> searchByAuthor(@RequestParam String encoded_title){
+        byte[] decodedbytes = Base64.getDecoder().decode(encoded_title);
+        String author = new String(decodedbytes);
+        //return bookService.searchByAuthor(author);
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.searchByAuthor(author));
+    }
+
+    @GetMapping("search-isbn")
+    public ResponseEntity<List<BookDTO>> searchByISBN(@RequestParam String encoded_title){
+        byte[] decodedbytes = Base64.getDecoder().decode(encoded_title);
+        long isbn_no = Long.parseLong(new String(decodedbytes));
+        //return bookService.searchByISBN(isbn_no);
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.searchByISBN(isbn_no));
+    }
+
+    @GetMapping("search-genre")
+    public ResponseEntity<List<BookDTO>> searchByGenre(@RequestParam String encoded_title){
+        byte[] decodedbytes = Base64.getDecoder().decode(encoded_title);
+        String genre = new String(decodedbytes);
+        //return bookService.searchByGenre(genre);
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.searchByGenre(genre));
+    }
+
+//    @GetMapping("search-availabilty")
+//    public ResponseEntity<List<BookDTO>> searchByAvailabilty(@RequestParam String encoded_title){
+//        byte[] decodedbytes = Base64.getDecoder().decode(encoded_title);
+//        String availability = new String(decodedbytes);
+//        //return bookService.searchByGenre(genre);
+//        return ResponseEntity.status(HttpStatus.OK).body(bookService.searchByAvailability(availability));
+//    }
+
+    @PostMapping("edit")
+    public ResponseEntity<String> editBook(@RequestBody Book book){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(bookService.editBook(book));
+    }
+
+    @PostMapping("addnewbook")
+    public ResponseEntity<String> addNewBook(@RequestBody Book book){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(bookService.addNewBook(book));
+    }
+
+    @DeleteMapping("delete")
+    public ResponseEntity<String> deleteBook(@RequestParam String encoded_title) {
+        byte[] decodedbytes = Base64.getDecoder().decode(encoded_title);
+        String isbn = new String(decodedbytes);
+        long isbn_No = Long.parseLong(isbn);
+        String response = bookService.deleteBookById(isbn_No);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+
+    @GetMapping("/borrow-book")
+    public ResponseEntity<BookDTO> borrowBook(@RequestParam String bookId) {
+
+        return bookService.borrowBook(bookId);
+    }
+
+}
