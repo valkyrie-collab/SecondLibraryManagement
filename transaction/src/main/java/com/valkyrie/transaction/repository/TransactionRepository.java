@@ -25,6 +25,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
     @Query("UPDATE Transaction t SET t.status = :status WHERE t.id = :id")
     void updateStatus(@Param("status") boolean status, @Param("id") String id);
 
+    @Query(value = "select t.book_ids from transaction_book_ids t " +
+        " join transaction te on t.transaction_id = te.id " + 
+        " where te.memberId = :memberId and te.status = :status", nativeQuery = true)
+    List<String> getBooksIds(@Param("memberId") String memberId, @Param("status") boolean status);
+
     List<Transaction> findAllByBorrowerId(String borrowerId);
 
 //    @Modifying

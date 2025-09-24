@@ -141,4 +141,25 @@ public class TransactionService {
 
         return ResponseEntity.status(HttpStatus.OK).body(transactionDTOs);
     }
+
+    public ResponseEntity<List<BookDTO>> getNonReturnedBooks(String memberId) {
+        List<String> bookIdList = repo.getBooksIds(
+            new String(Base64.getDecoder().decode(memberId)), false
+        );
+        List<BookDTO> bookDTOs = new LinkedList<>();
+
+        for (String bookId : bookIdList) {
+            ResponseEntity<BookDTO> response = bookFeign.borrowBook(
+                Base64.getEncoder().encodeToString(bookId.getBytes())
+            );
+
+            if (response == null || response.getBody() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+
+            bookDTOs.add(response.getBody());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(bookDTOs);
+    }
 }
