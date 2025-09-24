@@ -26,6 +26,10 @@ services:
     build: ./api
     depends_on:
       - authentication
+      - book
+      - transaction
+      - entity
+      - fine
     ports:
       - "8080:8080"
     environment:
