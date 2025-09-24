@@ -26,7 +26,7 @@ public class Api {
 
     @Bean
     public RouterFunction<ServerResponse> routerFunction() {
-        return post("authentication", "http://localhost:8081", "/user/**")
+        return post("authentication", "http://authentication:8081", "/user/**")
             .and(
                 get("entity-get", "http://entity:8082", "/entity/**")
             ).and(

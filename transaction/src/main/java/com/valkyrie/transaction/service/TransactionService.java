@@ -65,7 +65,7 @@ public class TransactionService {
         transaction = transaction.setId(uuid).setBorrowerId(username);
         repo.save(transaction);
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("saved successfully....");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("This is your transaction ID: " + transaction.getId());
     }
 
     public ResponseEntity<String> bookReturn(String transactionId, String lateReason) {
@@ -90,7 +90,7 @@ public class TransactionService {
             Fine fine = new Fine().setMemberId(transaction.getBorrowerId())
                     .setId(uuid).setAmount(11.9 * days).setReason(lateReason).setPaidStatus(false);
             fineFeign.save(fine);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("fine given....");
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("fine given.... with Id: " + fine.getId());
         }
 
 //        repo.deleteById(transactionId);
