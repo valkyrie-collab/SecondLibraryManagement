@@ -37,12 +37,22 @@ public class EntityController {
     @GetMapping("/find-entity")
     public ResponseEntity<UsersDTO> find(@RequestParam String id) {return entityService.findMember(id);}
 
+    @GetMapping("/find-entity-for-search") 
+    public ResponseEntity<UsersDTO> findForSearch(@RequestParam String token) {
+        return entityService.findMemberByToken(token);
+    }
+
     @DeleteMapping("/remove-member")
     public ResponseEntity<String> remove(@RequestParam String id) {return entityService.removeMember(id);}
     
     @PostMapping("/borrow-book")
     public ResponseEntity<String> borrow(@RequestParam String token, @RequestBody List<String> bookIds) {
         return entityService.borrowBook(token, bookIds);
+    }
+
+    @GetMapping("/find-by-username")
+    public ResponseEntity<List<UsersDTO>> findById(@RequestParam String id) {
+        return entityService.findMembersBySubstring(id);
     }
 
 }

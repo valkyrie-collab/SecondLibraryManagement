@@ -6,9 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.valkyrie.fine.model.Fine;
+import com.valkyrie.fine.model.FineDTO;
 import com.valkyrie.fine.service.FineService;
 
 import java.util.Base64;
+import java.util.List;
 
 @RestController
 @RequestMapping("/fine")
@@ -38,4 +40,11 @@ public class FineController {
     public ResponseEntity<String> deleteFine(@RequestParam String id){
         return ResponseEntity.status(HttpStatus.OK).body(fineService.deletefine(id));
     }
+
+    @GetMapping("/find-fine")
+    public ResponseEntity<List<FineDTO>> getFines(@RequestParam(required = false) String userId, 
+                                                    @RequestParam(required = false) String token) {
+        return fineService.getFineByUsername(userId, token);
+    }
+
 }

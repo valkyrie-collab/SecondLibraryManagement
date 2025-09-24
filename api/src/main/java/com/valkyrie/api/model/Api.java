@@ -26,7 +26,7 @@ public class Api {
 
     @Bean
     public RouterFunction<ServerResponse> routerFunction() {
-        return post("authentication", "http://authentication:8081", "/user/**")
+        return post("authentication", "http://localhost:8081", "/user/**")
             .and(
                 get("entity-get", "http://entity:8082", "/entity/**")
             ).and(
@@ -34,11 +34,16 @@ public class Api {
             ).and(
                 delete("entity-delete", "http://entity:8082", "/entity/**")
             ).and(
-                get("book-get", "http://book:8084", "/book/**")
+            //     get("book-get", "http://book:8084", "/book/**")
+            // ).and(
+            //     post("book-post", "http://book:8084", "/book/**")
+            // ).and(
+            //     delete("book-delete", "http://book:8084", "/book/**")
+            get("book-get", "http://localhost:8084", "/book/**")
             ).and(
-                post("book-post", "http://book:8084", "/book/**")
+                post("book-post", "http://localhost:8084", "/book/**")
             ).and(
-                delete("book-delete", "http://book:8084", "/book/**")
+                delete("book-delete", "http://localhost:8084", "/book/**")
             ).and(
                 get("fine-get", "http://fine:8085", "/fine/**")
             ).and(

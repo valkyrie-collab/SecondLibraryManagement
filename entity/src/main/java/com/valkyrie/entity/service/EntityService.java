@@ -1,6 +1,7 @@
 package com.valkyrie.entity.service;
 
 import java.util.Base64;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.valkyrie.entity.config.BookFeignController;
+// import com.valkyrie.entity.config.BookFeignController;
 import com.valkyrie.entity.config.TokenConfig;
 import com.valkyrie.entity.model.Users;
 import com.valkyrie.entity.model.UsersDTO;
@@ -17,7 +18,7 @@ import com.valkyrie.entity.repository.EntityRepository;
 @Service
 public class EntityService {
     private EntityRepository entityRepo;
-    private BookFeignController feign;
+    // private BookFeignController feign;
     private TokenConfig config;
 
     @Autowired
@@ -28,8 +29,8 @@ public class EntityService {
     @Autowired
     private void setConfig(TokenConfig config) {this.config = config;}
 
-    @Autowired
-    private void setFeign(BookFeignController feign) {this.feign = feign;}
+    // @Autowired
+    // private void setFeign(BookFeignController feign) {this.feign = feign;}
 
     public ResponseEntity<String> save(String token, Users entityField) {
         entityField = entityField.setId(config.getUsername(token));
@@ -104,7 +105,7 @@ public class EntityService {
 //    }
 
     public ResponseEntity<UsersDTO> findMember(String id) {
-        System.out.println(id);
+        // System.out.println(id);
         id = new String(Base64.getDecoder().decode(id));
         Users field = entityRepo.findById(id).orElse(null);
 
@@ -121,6 +122,25 @@ public class EntityService {
             );
     }
 
+    public ResponseEntity<UsersDTO> findMemberByToken(String token) {
+        String id = config.getUsername(token);
+
+        Users field = entityRepo.findById(id).orElse(null);
+
+        if (field == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+            new UsersDTO().setId(field.getId())
+                .setName(field.getName())
+                .setEmail(field.getEmail())
+                .setNumber(field.getNumber())
+                .setBookDTOs(null)//List of book ids he borrowed
+        );
+
+    }
+
     public ResponseEntity<String> removeMember(String id) {
         id = new String(Base64.getDecoder().decode(id));
 
@@ -131,6 +151,24 @@ public class EntityService {
         entityRepo.deleteById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body("delete successfully...");
+    }
+
+    public ResponseEntity<List<UsersDTO>> findMembersBySubstring(String username) {
+        username = new String(Base64.getDecoder().decode(username));
+        System.out.println(username);
+        List<Users> users = entityRepo.findUsersByUsername(username.toLowerCase());
+        List<UsersDTO> userDTOs = new LinkedList<>();
+
+        for (Users user : users) {
+            userDTOs.add(
+                new UsersDTO().setBookDTOs(null)
+                    .setEmail(user.getEmail()).setId(user.getId())
+                    .setName(user.getName()).setNumber(user.getNumber())
+            );
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDTOs);
+
     }
 
 }

@@ -1,5 +1,7 @@
 package com.valkyrie.fine.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +22,7 @@ public interface FineRepo extends JpaRepository<Fine,String> {
     @Transactional
     @Query("UPDATE Fine s SET s.paidStatus = true WHERE s.id = :id")
     void updatestatus(@Param("id") String id);
+
+    List<Fine> findAllByMemberId(String memberId);
 
 }
