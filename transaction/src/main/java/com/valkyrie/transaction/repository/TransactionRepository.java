@@ -20,6 +20,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
     @Query("update Transaction t set t.dueDate = :dueDate where t.id = :id")
     void updateDueDate(@Param("dueDate") Date dueDate, @Param("id") String id);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE Transaction t SET t.status = :status WHERE t.id = :id")
+    void updateStatus(@Param("status") boolean status, @Param("id") String id);
+
     List<Transaction> findAllByBorrowerId(String borrowerId);
 
 //    @Modifying

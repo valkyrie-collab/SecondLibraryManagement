@@ -62,7 +62,7 @@ public class TransactionService {
         }
 
         String uuid = UUID.randomUUID().toString();
-        transaction = transaction.setId(uuid).setBorrowerId(username);
+        transaction = transaction.setId(uuid).setBorrowerId(username).setStatus(false);
         repo.save(transaction);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("This is your transaction ID: " + transaction.getId());
@@ -80,6 +80,7 @@ public class TransactionService {
 
         Date dueDate = new Date(System.currentTimeMillis());
         repo.updateDueDate(dueDate, transactionId);
+        repo.updateStatus(true, transactionId);
 //        transaction.setDueDate(dueDate);
 
         long days = (dueDate.getTime() -

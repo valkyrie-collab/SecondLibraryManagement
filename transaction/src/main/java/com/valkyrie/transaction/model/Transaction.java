@@ -18,6 +18,7 @@ public class Transaction {
     private Date dueDate;
     private Date returnDate;
     private long numberOfDueDate;
+    private boolean status;
     @ElementCollection
     private List<String> bookIds;
 
@@ -34,6 +35,8 @@ public class Transaction {
     public Date getReturnDate() {return returnDate;}
 
     public List<String> getBookIds() {return bookIds;}
+
+    public boolean getStatus() {return status;}
 
     public Transaction setId(String id) {
         this.id = id;
@@ -67,6 +70,11 @@ public class Transaction {
 
     public Transaction setBookIds(List<String> bookIds) {
         this.bookIds = bookIds;
+        return this;
+    }
+
+    public Transaction setStatus(boolean status) {
+        this.status = status;
         return this;
     }
 
