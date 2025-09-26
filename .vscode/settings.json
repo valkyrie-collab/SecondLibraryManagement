@@ -23,6 +23,39 @@
             "database": "transaction",
             "username": "postgres",
             "password": "postgres30082004"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "BookDatabase",
+            "username": "postgres",
+            "password": "postgres30082004",
+            "database": "book"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "AuthenticationDatabase",
+            "database": "authentication",
+            "username": "postgres",
+            "password": "postgres30082004"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "FineDatabase",
+            "database": "fine",
+            "username": "postgres",
+            "password": "postgres30082004"
         }
     ],
     "java.project.sourcePaths": []

@@ -27,8 +27,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
 
     @Query(value = "select t.book_ids from transaction_book_ids t " +
         " join transaction te on t.transaction_id = te.id " + 
-        " where te.memberId = :memberId and te.status = :status", nativeQuery = true)
-    List<String> getBooksIds(@Param("memberId") String memberId, @Param("status") boolean status);
+        " where te.borrower_id = :memberId and te.status = false", nativeQuery = true)
+    List<String> getBooksIds(@Param("memberId") String memberId);
 
     List<Transaction> findAllByBorrowerId(String borrowerId);
 

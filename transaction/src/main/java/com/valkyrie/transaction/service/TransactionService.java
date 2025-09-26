@@ -45,7 +45,7 @@ public class TransactionService {
 //    @Autowired
 //    private void setAuthFeign(AuthenticationFeignController authFeign) {this.authFeign = authFeign;}
 
-    public ResponseEntity<String> save(String username, Transaction transaction) {
+    public ResponseEntity<String> save(String username, String token,Transaction transaction) {
 //        String username = config.getUsername(token);
 
 //        if (!authFeign.getUser(username).getStatusCode().equals(HttpStatusCode.valueOf(200))) {
@@ -53,9 +53,14 @@ public class TransactionService {
 //        }
 
 //        String encodedUsername = Base64.getEncoder().encodeToString(username.getBytes());
-        System.out.println(username);
-        ResponseEntity<UsersDTO> response = feign.find(username);
-        username = new String(Base64.getDecoder().decode(username));
+        // System.out.println(username);
+        ResponseEntity<UsersDTO> response = feign.find(
+            username != null? username : 
+            Base64.getEncoder().encodeToString(config.getUsername(token).getBytes()));
+
+        username = username != null? 
+            new String(Base64.getDecoder().decode(username)) : 
+            config.getUsername(token);
 
         if (!response.getStatusCode().equals(HttpStatusCode.valueOf(200)) || response.getBody() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("member not present");
@@ -108,7 +113,7 @@ public class TransactionService {
     public ResponseEntity<List<TransactionDTO>> numberOfBooksBorrowed(String token) {
         String username = config.getUsername(token);
         List<Transaction> transactions = repo.findAllByBorrowerId(username);
-//        List<String> bookIds = transactions.stream().flatMap(t -> t.getBookIds().stream()).toList();
+        //  List<String> bookIds = transactions.stream().flatMap(t -> t.getBookIds().stream()).toList();
         List<TransactionDTO> transactionDTOs = new ArrayList<>();
 
         if (transactions.size() > 50) {
@@ -144,8 +149,9 @@ public class TransactionService {
 
     public ResponseEntity<List<BookDTO>> getNonReturnedBooks(String memberId) {
         List<String> bookIdList = repo.getBooksIds(
-            new String(Base64.getDecoder().decode(memberId)), false
+            new String(Base64.getDecoder().decode(memberId))
         );
+        System.out.println(bookIdList + " and " + new String(Base64.getDecoder().decode(memberId)));
         List<BookDTO> bookDTOs = new LinkedList<>();
 
         for (String bookId : bookIdList) {

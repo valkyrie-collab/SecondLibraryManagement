@@ -19,8 +19,8 @@ public class TransactionController {
     private void setService(TransactionService service) {this.service = service;}
 
     @PostMapping("/save-transaction")
-    public ResponseEntity<String> save(@RequestParam String username,
-                                       @RequestBody Transaction transaction) {return service.save(username, transaction);}
+    public ResponseEntity<String> save(@RequestParam (required = false) String username, @RequestParam (required = false) String token,
+                                       @RequestBody Transaction transaction) {return service.save(username, token, transaction);}
 
     @PostMapping("/return-book")
     public ResponseEntity<String> returnBook(@RequestParam String transactionId, @RequestParam String lateReason) {
