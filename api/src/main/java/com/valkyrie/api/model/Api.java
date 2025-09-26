@@ -24,63 +24,63 @@ public class Api {
         return route(name).DELETE(finalRoute,http()).before(uri(initialRoute)).build();
     }
 
-    // @Bean
-    // public RouterFunction<ServerResponse> routerFunction() {
-    //     return post("authentication", "http://authentication:8081", "/user/**")
-    //         .and(
-    //             get("entity-get", "http://entity:8082", "/entity/**")
-    //         ).and(
-    //             post("entity-post", "http://entity:8082", "/entity/**")
-    //         ).and(
-    //             delete("entity-delete", "http://entity:8082", "/entity/**")
-    //         ).and(
-    //             get("book-get", "http://book:8084", "/book/**")
-    //         ).and(
-    //             post("book-post", "http://book:8084", "/book/**")
-    //         ).and(
-    //             delete("book-delete", "http://book:8084", "/book/**")
-    //         ).and(
-    //             get("fine-get", "http://fine:8085", "/fine/**")
-    //         ).and(
-    //             post("fine-post", "http://fine:8085", "/fine/**")
-    //         ).and(
-    //             delete("fine-delete", "http://fine:8085", "/fine/**")
-    //         ).and(
-    //             get("transaction-get", "http://transaction:8083", "/transaction/**")
-    //         ).and(
-    //             post("transaction-post", "http://transaction:8083", "/transaction/**")
-    //         ).and(
-    //             delete("transaction-delete", "http://transaction:8083", "/transaction/**")
-    //         );
-    // }
-
     @Bean
-    public RouterFunction<ServerResponse> routerFunctionTwo() {
-        return post("authentication", "http://localhost:8081", "/user/**")
+    public RouterFunction<ServerResponse> routerFunction() {
+        return post("authentication", "http://authentication:8081", "/user/**")
             .and(
-                get("entity-get", "http://localhost:8082", "/entity/**")
+                get("entity-get", "http://entity:8082", "/entity/**")
             ).and(
-                post("entity-post", "http://localhost:8082", "/entity/**")
+                post("entity-post", "http://entity:8082", "/entity/**")
             ).and(
-                delete("entity-delete", "http://localhost:8082", "/entity/**")
+                delete("entity-delete", "http://entity:8082", "/entity/**")
             ).and(
-                get("book-get", "http://localhost:8084", "/book/**")
+                get("book-get", "http://book:8084", "/book/**")
             ).and(
-                post("book-post", "http://localhost:8084", "/book/**")
+                post("book-post", "http://book:8084", "/book/**")
             ).and(
-                delete("book-delete", "http://localhost:8084", "/book/**")
+                delete("book-delete", "http://book:8084", "/book/**")
             ).and(
-                get("fine-get", "http://localhost:8085", "/fine/**")
+                get("fine-get", "http://fine:8085", "/fine/**")
             ).and(
-                post("fine-post", "http://localhost:8085", "/fine/**")
+                post("fine-post", "http://fine:8085", "/fine/**")
             ).and(
-                delete("fine-delete", "http://localhost:8085", "/fine/**")
+                delete("fine-delete", "http://fine:8085", "/fine/**")
             ).and(
-                get("transaction-get", "http://localhost:8083", "/transaction/**")
+                get("transaction-get", "http://transaction:8083", "/transaction/**")
             ).and(
-                post("transaction-post", "http://localhost:8083", "/transaction/**")
+                post("transaction-post", "http://transaction:8083", "/transaction/**")
             ).and(
-                delete("transaction-delete", "http://localhost:8083", "/transaction/**")
+                delete("transaction-delete", "http://transaction:8083", "/transaction/**")
             );
     }
+
+    // @Bean
+    // public RouterFunction<ServerResponse> routerFunctionTwo() {
+    //     return post("authentication", "http://localhost:8081", "/user/**")
+    //         .and(
+    //             get("entity-get", "http://localhost:8082", "/entity/**")
+    //         ).and(
+    //             post("entity-post", "http://localhost:8082", "/entity/**")
+    //         ).and(
+    //             delete("entity-delete", "http://localhost:8082", "/entity/**")
+    //         ).and(
+    //             get("book-get", "http://localhost:8084", "/book/**")
+    //         ).and(
+    //             post("book-post", "http://localhost:8084", "/book/**")
+    //         ).and(
+    //             delete("book-delete", "http://localhost:8084", "/book/**")
+    //         ).and(
+    //             get("fine-get", "http://localhost:8085", "/fine/**")
+    //         ).and(
+    //             post("fine-post", "http://localhost:8085", "/fine/**")
+    //         ).and(
+    //             delete("fine-delete", "http://localhost:8085", "/fine/**")
+    //         ).and(
+    //             get("transaction-get", "http://localhost:8083", "/transaction/**")
+    //         ).and(
+    //             post("transaction-post", "http://localhost:8083", "/transaction/**")
+    //         ).and(
+    //             delete("transaction-delete", "http://localhost:8083", "/transaction/**")
+    //         );
+    // }
 }
