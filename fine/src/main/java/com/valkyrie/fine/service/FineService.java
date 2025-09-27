@@ -40,6 +40,11 @@ public class FineService {
             new String(Base64.getDecoder().decode(userId)) : 
             config.getUsername(token);
         List<Fine> fines = fineRepo.findAllByMemberId(userId);
+        
+        if (fines.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        
         List<FineDTO> fineDTOs = fines.stream().map(
             fine -> new FineDTO().setId(fine.getId())
                     .setAmount(fine.getAmount())

@@ -23,6 +23,13 @@ public interface BookRepo extends JpaRepository<Book,Long>{
     @Query("SELECT s from Book s WHERE LOWER(s.genre) LIKE %:genre%")
     List<Book> findAllBookByGenre(String genre);
 
+    // @Query(value = "SELECT * FROM book WHERE " +
+    //            "LOWER(genre) LIKE CONCAT('%', :searchText, '%') OR " +
+    //            "LOWER(author) LIKE CONCAT('%', :searchText, '%') OR " +
+    //            "LOWER(title) LIKE CONCAT('%', :searchText, '%')",
+    //    nativeQuery = true)
+    // List<Book> findByAny(@Param("searchText") String searchText);
+
 //    @Query("SELECT s FROM Book s WHERE s.availabilty = true ")
 //    List<Book> findAllBookByAvailability(String availability);
 

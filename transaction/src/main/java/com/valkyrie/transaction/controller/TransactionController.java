@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.valkyrie.transaction.model.BookDTO;
+import com.valkyrie.transaction.model.EntityTransactionDTO;
 import com.valkyrie.transaction.model.Transaction;
 import com.valkyrie.transaction.model.TransactionDTO;
 import com.valkyrie.transaction.service.TransactionService;
@@ -33,7 +33,7 @@ public class TransactionController {
     }
 
     @GetMapping("/find-non-returned-books")
-    public ResponseEntity<List<BookDTO>> getNonReturnedBook(@RequestParam String memberId) {
-        return service.getNonReturnedBooks(memberId);
+    public ResponseEntity<List<EntityTransactionDTO>> getNonReturnedBook(@RequestParam String token) {
+        return service.getNonReturnedBooks(token);
     }
 }

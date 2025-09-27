@@ -11,6 +11,6 @@ import com.valkyrie.transaction.model.BookDTO;
 public interface BookFeignController {
 
     @GetMapping("/book/borrow-book")
-    ResponseEntity<BookDTO> borrowBook(@RequestParam String bookId);
+    public ResponseEntity<BookDTO> borrowBook(@RequestParam String bookId);
 
 }

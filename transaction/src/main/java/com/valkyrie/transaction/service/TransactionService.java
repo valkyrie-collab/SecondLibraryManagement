@@ -11,6 +11,8 @@ import com.valkyrie.transaction.config.EntityFeignController;
 import com.valkyrie.transaction.config.FineFeignController;
 import com.valkyrie.transaction.config.TokenConfig;
 import com.valkyrie.transaction.model.BookDTO;
+import com.valkyrie.transaction.model.EntityTransaction;
+import com.valkyrie.transaction.model.EntityTransactionDTO;
 import com.valkyrie.transaction.model.Fine;
 import com.valkyrie.transaction.model.Transaction;
 import com.valkyrie.transaction.model.TransactionDTO;
@@ -147,25 +149,36 @@ public class TransactionService {
         return ResponseEntity.status(HttpStatus.OK).body(transactionDTOs);
     }
 
-    public ResponseEntity<List<BookDTO>> getNonReturnedBooks(String memberId) {
-        List<String> bookIdList = repo.getBooksIds(
-            new String(Base64.getDecoder().decode(memberId))
-        );
-        System.out.println(bookIdList + " and " + new String(Base64.getDecoder().decode(memberId)));
-        List<BookDTO> bookDTOs = new LinkedList<>();
+    public ResponseEntity<List<EntityTransactionDTO>> getNonReturnedBooks(String token) {
+        String memberId = config.getUsername(token);
+        List<EntityTransaction> entityTransactions = repo.getBooksIds(memberId);
+        // System.out.println(bookIdList + " and " + new String(Base64.getDecoder().decode(memberId)));
+        List<EntityTransactionDTO> entityTransactionDTOs = new LinkedList<>();
 
-        for (String bookId : bookIdList) {
+        for (EntityTransaction entityTransaction : entityTransactions) {
+            // System.out.println(entityTransaction.getBookId());
+            String bookId = entityTransaction.getBookId();
+            System.out.println("The book id is: " + bookId);
+
+            if (bookId == null || bookId.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+
             ResponseEntity<BookDTO> response = bookFeign.borrowBook(
-                Base64.getEncoder().encodeToString(bookId.getBytes())
+                Base64.getEncoder().encodeToString(entityTransaction.getBookId().getBytes())
             );
 
             if (response == null || response.getBody() == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
             }
 
-            bookDTOs.add(response.getBody());
+            entityTransactionDTOs.add(
+                new EntityTransactionDTO().setBookDTO(response.getBody())
+                    .setIssueDate(entityTransaction.getIssueDate())
+                    .setReturnDate(entityTransaction.getReturnDate())
+            );
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(bookDTOs);
+        return ResponseEntity.status(HttpStatus.OK).body(entityTransactionDTOs);
     }
 }

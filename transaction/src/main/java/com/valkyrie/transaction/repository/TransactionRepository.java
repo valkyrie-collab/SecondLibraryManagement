@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.valkyrie.transaction.model.EntityTransaction;
 import com.valkyrie.transaction.model.Transaction;
 
 import java.util.Date;
@@ -25,10 +26,10 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
     @Query("UPDATE Transaction t SET t.status = :status WHERE t.id = :id")
     void updateStatus(@Param("status") boolean status, @Param("id") String id);
 
-    @Query(value = "select t.book_ids from transaction_book_ids t " +
+    @Query(value = "select t.book_ids, te.issue_date, te.return_date from transaction_book_ids t " +
         " join transaction te on t.transaction_id = te.id " + 
         " where te.borrower_id = :memberId and te.status = false", nativeQuery = true)
-    List<String> getBooksIds(@Param("memberId") String memberId);
+    List<EntityTransaction> getBooksIds(@Param("memberId") String memberId);
 
     List<Transaction> findAllByBorrowerId(String borrowerId);
 
