@@ -28,7 +28,7 @@ public class SecurityConfig {
         return security.csrf(c -> c.disable())
                     .authorizeHttpRequests(
                         a -> a.requestMatchers(
-                            "/user/sign-up", "/user/sign-in"
+                            "/user/sign-up", "/user/sign-in", "/book/search-genre"
                         ).permitAll()
                         .requestMatchers(
                             "/user/sign-up", "/user/sign-in"
